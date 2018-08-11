@@ -26,14 +26,15 @@ function padLeftZero(str) {
   return ('00' + str).substr(str.length)
 }
 
-export function cutString (str, len) {
+export function cutString(str, len) {
   if (str !== null) {
+    let md = new MarkdownIt()
+    str = md.render(str)
+    str = str.replace(/<.*?>/g, '').replace(/&lt;.*?/g, '<').replace(/&gt;.*?/g, '>').replace(/\s/g, '')
     if (str.length * 2 <= len) {
       return str
     }
-    let md = new MarkdownIt()
-    str = md.render(str)
-    str = str.replace(/<.*?>/g, '').replace(/&lt;.*?/g, '<').replace(/&gt;.*?/g, '>')
+
     let strlen = 0
     let s = ''
     for (let i = 0; i < str.length; i++) {
@@ -54,19 +55,7 @@ export function cutString (str, len) {
   }
 }
 
-export function flag(flag) {
-  switch (flag) {
-    case 1:
-      return '原创'
-      break;
-    case 2:
-      return '分享'
-      break;
-    default:
-    return '原创'
-  }
-}
-const filters = { formatDate, flag, cutString }
+const filters = { formatDate, cutString }
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

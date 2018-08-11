@@ -1,45 +1,30 @@
 <template>
-  <div>
-    <template v-if="hasID">
-      <list :articles="articles"></list>
-    </template>
-    <template v-else>
-      <div class="search">
-        <h3 class="search-title">文章搜索</h3>
-        <div class="search-form">
-          <input type="text" v-model="keyword" @keyup.enter="search" autofocus>
-          <button @click="search" class="black-button">搜索</button>
-        </div>
+  <div class="search container">
+    <div v-if="$route.params.id">
+      <div class="search-result">
+        <p>找到{{ $store.state.searchArticles.length }}篇和 <span>{{ keyword }}</span> 相关的文章</p>
+        <top-list :articles="$store.state.searchArticles" />
       </div>
-    </template>
+    </div>
+    <div v-else>
+      <div class="search-wrap">
+        <h3>文章搜索</h3>
+        <label>
+          <input type="text" v-model="keyword" @keyup.enter="search" autofocus placeholder="回车搜索" maxlength="30">
+        </label>
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import List from '~/components/List.vue'
 export default {
-  async asyncData({ store, route }) {
+  async fetch({ store, route }) {
     let id = route.params.id || ''
-    let data = await store.dispatch('SEARCH', id)
-    if (route.params.id) {
-      // articles
-      if (data.success) {
-        return {
-          hasID: true,
-          articles: data.data
-        }
-      }
-    } else {
-      if (data.success) {
-        return {
-          hasID: false,
-          articles: []
-        }
-      }
-    }
+    await store.dispatch('SEARCH', id)
   },
-  head () {
+  head() {
     return {
-      title: '搜索 - VueBlog'
+      title: '搜索 - ' + this.$store.state.user.nickname
     }
   },
   data() {
@@ -49,16 +34,15 @@ export default {
   },
   methods: {
     search() {
-      if (this.keyword === '') {
-        return
-      } else {
-        let keyword = encodeURIComponent(this.keyword)
-        this.$router.push(`/search/${keyword}`)
-      }
+      let keyword = encodeURIComponent(this.keyword) || encodeURIComponent(this.$route.params.id)
+      if (!keyword) { return false }
+      this.$router.push({
+        name: 'search-id',
+        params: {
+          id: keyword
+        }
+      })
     }
-  },
-  components: {
-    List
   }
 }
 

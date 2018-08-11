@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   role: {
     type: String,
-    default: 'user',
+    default: 'user'
   },
   username: String,
   password: String,
@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   }
 })
 
-// hidden some field
+// 隐藏一些字段
 UserSchema.options.toJSON = {
   virtuals: true,
   versionKey: false,
@@ -30,8 +30,6 @@ UserSchema.options.toJSON = {
     ret.id = ret._id
     delete ret._id
     delete ret.id
-    delete ret.password
-    delete ret.username
   }
 }
 mongoose.model('User', UserSchema)

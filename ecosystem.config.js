@@ -14,7 +14,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'root',
-      host: '198.13.32.165',
+      host: '', // 服务器IP
       ref: 'origin/master',
       repo: 'git@github.com:wmui/vueblog.git',
       path: '/www/vueblog',

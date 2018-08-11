@@ -1,9 +1,9 @@
 <template>
   <div class="login container">
-    <input type="text" class="login-username" placeholder="用户名" autocomplete="off" v-model="user.username">
-    <input type="password" class="login-password" placeholder="密码" autocomplete="off" v-model="user.password" @keyup.enter="login">
-    <button class="login-button" @click="login">登 录</button>
-    <Tip ref="tip"></Tip>
+    <input type="text" placeholder="用户名" autocomplete="off" v-model="user.username">
+    <input type="password" placeholder="密码" autocomplete="off" v-model="user.password" @keyup.enter="login">
+    <button @click="login">登 录</button>
+    <top-tip ref="tip"/>
   </div>
 </template>
 <script>
@@ -13,15 +13,15 @@ export default {
       user:{}
     }
   },
-  head () {
+  head() {
     return {
-      title: '登录 - VueBlog'
+      title: '登录 - ' + this.$store.state.user.nickname
     }
   },
   methods: {
-    login () {
+    login() {
       if(!this.user.username || !this.user.password) {
-        return
+        return false
       }
       this.$store.dispatch('LOGIN', this.user).then(data => {
         if(data.success) {
@@ -34,3 +34,4 @@ export default {
   }
 }
 </script>
+

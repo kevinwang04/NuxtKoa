@@ -6,7 +6,18 @@ import actions from './actions'
 export default () => {
   return new Vuex.Store({
     state: {
-      token: ''
+      token: '',
+      githubToken: '',
+      user: {},
+      total: 0,
+      articles: [],
+      tags: [],
+      tagArticles: [], // 标签下的文章列表
+      searchArticles: [],
+      archives: [],
+      githubApi:{
+        userInfo: 'https://api.github.com/user?access_token='
+      }
     },
     getters,
     mutations,

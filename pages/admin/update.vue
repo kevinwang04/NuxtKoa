@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-update container">
+  <div class="admin-update">
     <div class="update-info">
       <h4>修改个人信息</h4>
       <input type="text" v-model="user.nickname">
@@ -14,33 +14,30 @@
       <input type="password" v-model="vertifyPassword" placeholder="再次输入新密码">
       <button @click="updatePassword">确认修改</button>
     </div>
-    <Tip ref="tip"></Tip>
+    <top-tip ref="tip"/>
   </div>
 </template>
 <script>
 export default {
   middleware: 'auth',
-  async asyncData({ store }) {
-    let data = await store.dispatch('ADMIN_INFO')
-    if (data.success) {
-      return {
-        user: data.data
-      }
-    } else {
-      return {
-        user: {}
-      }
-    }
-  },
-
   data() {
     return {
       oldPassword: '',
       newPassword: '',
-      vertifyPassword: ''
+      vertifyPassword: '',
+      user: {}
     }
   },
-
+  mounted() {
+    this.$store.dispatch('ADMIN_INFO').then((data) => {
+      this.user = data.data
+    })
+  },
+  head() {
+    return {
+      title: '修改信息 - ' + this.$store.state.user.nickname
+    }
+  },
   methods: {
     updateInfo() {
       this.$store.dispatch('UPDATE_ADMIN', this.user).then((data) => {
@@ -51,11 +48,11 @@ export default {
     },
     updatePassword() {
       if (!this.oldPassword || !this.newPassword || !this.vertifyPassword) {
-        return
+        return false
       }
       if (this.newPassword !== this.vertifyPassword) {
         this.$refs.tip.openTip('两次密码不一致！')
-        return
+        return false
       }
       this.$store.dispatch('UPDATE_ADMIN', { oldPassword: this.oldPassword, newPassword: this.newPassword }).then((data) => {
         if(data.success) {
@@ -64,7 +61,7 @@ export default {
           this.$store.dispatch('LOGOUT').then(ret => {
             if(ret.success) {
               this.$store.state.token = ''
-              this.$router.push('/')
+              this.$router.push('/login')
             }
           })
         }
@@ -74,4 +71,3 @@ export default {
 }
 
 </script>
-

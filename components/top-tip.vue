@@ -7,6 +7,7 @@
 </template>
 <script>
 export default {
+  name: 'top-tip',
   data() {
     return {
       tip: '',
@@ -27,7 +28,7 @@ export default {
 }
 
 </script>
-<style lang="postcss">
+<style>
 .tip {
   display: flex;
   justify-content: center;

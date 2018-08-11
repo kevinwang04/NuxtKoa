@@ -1,48 +1,62 @@
 <template>
   <div class="detail container">
-    <p class="detail-title" v-if="article.flag == 2"><a :href="article.link" target="_blank">{{ article.title }}</a></p>
-    <p class="detail-title" v-else>{{ article.title }}</p>
+    <h1 class="detail-title">{{ article.title }}</h1>
     <div class="detail-meta">
-      <p class="meta meta-created">发布：{{ article.createdAt | formatDate('yyyy-MM-dd') }}</p>
-      <p class="meta meta-updated">更新：{{ article.updatedAt | formatDate('yyyy-MM-dd') }}</p>
-      <p class="meta meta-view">浏览：{{ article.views }} 次</p>
-      <p class="meta meta-tags">标签：<span v-for="(tag, index) in article.tags" :key="index">{{ tag.name }}</span></p>
+      <span>
+        {{ article.createdAt | formatDate('yyyy-MM-dd') }}
+        <span class="meta-division">/</span> {{ article.updatedAt | formatDate('yyyy-MM-dd') }}
+      <span class="meta-division">/</span> {{ article.views }}次浏览
+      </span>
     </div>
     <div class="detail-content">
       <top-preview :content="article.content" :options="options"></top-preview>
+    </div>
+    <p class="detail-tags">
+      <nuxt-link v-for="(tag, index) in article.tags" :key="index" :to="'/tags/' + tag.id">{{ tag.name }}</nuxt-link>
+    </p>
+    <div class="detail-copyright">
+      <p>文章采用 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">知识共享署名 4.0 国际许可协议</a> 进行许可，转载时请注明原文链接。</p>
     </div>
     <div class="detail-admin" v-if="isLogin">
       <p class="admin-del"><a @click="del(article.id)">删除</a></p>
       <p class="admin-edit"><a @click="edit(article.id)">编辑</a></p>
     </div>
-    <Tip ref="tip"></Tip>
+    <div v-if="isConfig">
+      <top-comment :comment-list="article.comments" :article-id="article.id" />
+    </div>
+    <top-tip ref="tip" />
   </div>
 </template>
 <script>
-import TopPreview from 'top-editor/src/lib/TopPreview.vue'
+import { cutString } from '~/plugins/filters'
 export default {
-  async asyncData({ store, route }) {
-    let id = route.params.id
-    let data = await store.dispatch('ARTICLE_DETAIL', id)
-    if (data.success) {
-      return {
-        article: data.data
-      }
-    } else {
-      return {
-        article: {}
-      }
+  async asyncData({ store, route, error }) {
+    let id = route.params.id || ''
+    const { data } = await store.dispatch('ARTICLE_DETAIL', id)
+    if (!id) {
+      error({
+        message: 'This page could not be found',
+        statusCode: 404
+      })
+      return false
     }
-  },
-  head () {
     return {
-      title: `${this.article.title} - VueBlog`
+      article: data || {}
     }
   },
-  data () {
+  head() {
+    return {
+      title: this.article.title + '-' + this.$store.state.user.nickname,
+      meta: [
+        { description: cutString(this.article.content, 300) }
+      ]
+    }
+  },
+  data() {
     return {
       options: {},
-      isLogin: this.$store.state.token ? true : false
+      isLogin: this.$store.state.token ? true : false,
+      isConfig: this.$store.getters.isGithubConfig
     }
   },
 
@@ -74,11 +88,7 @@ export default {
     edit(id) {
       this.$router.push(`/admin/publish/${id}`)
     }
-  },
-
- components: {
-  TopPreview
- }
+  }
 }
 
 </script>
