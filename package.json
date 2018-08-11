@@ -8,7 +8,7 @@
     "debug": "nodemon --exec babel-node ./start.js",
     "build": "nuxt build && backpack build",
     "nuxt": "nuxt",
-    "server": "server=true nodemon --exec babel-node ./server",
+    "server": "server=true nodemon -w ./server --exec babel-node ./server",
     "start": "cross-env NODE_ENV=production node build/main.js",
     "precommit": "npm run lint",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -18,6 +18,7 @@
     "@koa/cors": "^2.2.1",
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/pwa": "^2.0.5",
+    "axios": "^0.18.0",
     "cross-env": "^5.0.1",
     "formidable": "^1.1.1",
     "highlight.js": "^9.12.0",
@@ -32,7 +33,8 @@
     "nodemailer": "^4.6.7",
     "nuxt": "latest",
     "source-map-support": "^0.4.15",
-    "top-editor": "^0.0.8"
+    "top-editor": "^0.0.8",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@nuxtjs/axios": "^5.3.1",

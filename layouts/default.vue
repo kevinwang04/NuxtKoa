@@ -36,12 +36,12 @@
     </section>
     <aside class="blog-aside">
       <nuxt-link to="/rss.xml" target="_blank"><i class="vueblog icon-rss"></i></nuxt-link>
-      <a href="https://github.com/wmui"><i class="vueblog icon-github"></i></a>
-      <a href="/admin/publish"><i class="vueblog icon-writefill"></i></a>
+      <a href="https://github.com/kevinwang04"><i class="vueblog icon-github"></i></a>
       <a @click="backTop"><i class="vueblog icon-backtop"></i></a>
     </aside>
     <footer class="blog-footer container">
-      <p>Powered by <a href="https://github.com/wmui/vueblog" target="_blank">VueBlog</a></p>
+      <!-- <a href="/admin/publish"><i class="vueblog icon-writefill"></i></a> -->
+      <p><a href="https://github.com/kevinwang04" target="_blank">Kevinwang</a> copyright <span @click="$router.push('/admin/publish')">©</span> 2018</p>
     </footer>
   </div>
 </template>
@@ -92,6 +92,9 @@ export default {
       ]
     }
   },
+  created() {
+    // console.log(this.$store.state)
+  },
   methods: {
     search() {
       let keyword = encodeURIComponent(this.keyword)
@@ -128,6 +131,7 @@ export default {
 </script>
 <style lang="scss">
 @import '~/assets/css/var.scss';
+
 .blog {
   position: relative;
   .header-wraper {
@@ -139,7 +143,7 @@ export default {
     line-height: 50px;
     border-bottom: 1px solid #eee;
     z-index: 9;
-    background-color: #fff;
+    background-color: #42b983;
   }
   .blog-header {
     display: flex;
@@ -192,11 +196,11 @@ export default {
           color: $font-color;
           padding: 0 15px;
           &:hover {
-            color: $link-color;
+            color: $white;
           }
         }
         &.nav-active a {
-          color: $link-color;
+          color: $font-color;
         }
       }
     }
@@ -216,6 +220,7 @@ export default {
     padding-right: 15px;
     margin-bottom: 50px;
     margin-top: 100px;
+    min-height: calc(100vh - 210px);
   }
   .blog-aside {
     position: fixed;

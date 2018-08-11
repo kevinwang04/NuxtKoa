@@ -138,6 +138,8 @@ export default {
   async LOGIN({ commit, state, getters }, user) {
     const { data } = await axios.post(`${getters.baseUrl}/login`, user)
     commit('SET_TOKEN', data.data.token)
+    const userInfo = await axios.get(`${getters.baseUrl}/user`)
+    commit('SET_USER', userInfo.data)
     return data
   },
 
