@@ -5,7 +5,6 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: 'standard',
   // required to lint *.vue files
   plugins: [
     'html'
@@ -13,12 +12,13 @@ module.exports = {
   // add your custom rules here
   rules: {
     'space-before-function-paren': [
-      2,
+      0,
       {
         anonymous: 'always',
         named: 'never'
       }
     ],
+    'no-unused-vars': 0
   },
   globals: {}
 }

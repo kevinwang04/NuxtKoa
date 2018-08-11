@@ -20,8 +20,8 @@ async function start () {
   app.use(KoaStatic('.'))
   router.use('', route.routes())
   app
-  .use(router.routes())
-  .use(router.allowedMethods())
+    .use(router.routes())
+    .use(router.allowedMethods())
 
   // Import and Set Nuxt.js options
   let config = require('../nuxt.config.js')

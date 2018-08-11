@@ -10,6 +10,7 @@ const router = new Router({
 const user = require('../controllers/user')
 const tag = require('../controllers/tag')
 const article = require('../controllers/article')
+const testCtl = require('../controllers/test')
 
 router
   .get('/user', user.getUserInfo)
@@ -33,5 +34,8 @@ router
   .post('/upload', checkToken, article.upload)
   .patch('/article', checkToken, article.patchArticle)
   .del('/article/:id?', checkToken, article.deleteArticle)
+
+router
+  .get('/test',testCtl.getTest)
 
 export default router
