@@ -8,9 +8,10 @@
 <script>
 export default {
   async fetch({ store, route }) {
-    if (!store.state.articles.length) {
-      await store.dispatch('ARTICLES', 1)
-    }
+    await store.dispatch('ARTICLES', 1)
+    // if (!store.state.articles.length) {
+    //   await store.dispatch('ARTICLES', 1)
+    // }
   },
   data() {
     return {
