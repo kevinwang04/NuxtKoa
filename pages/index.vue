@@ -8,7 +8,7 @@
 <script>
 export default {
   async fetch({ store, route }) {
-    await store.dispatch('ARTICLES', 1)
+    // await store.dispatch('ARTICLES', 1)
     // if (!store.state.articles.length) {
     //   await store.dispatch('ARTICLES', 1)
     // }
@@ -19,6 +19,9 @@ export default {
       isLoading: false,
       noMore: false
     }
+  },
+  async mounted() {
+    await this.$store.dispatch('ARTICLES', 1)
   },
   head() {
     return {
