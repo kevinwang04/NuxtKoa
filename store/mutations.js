@@ -9,7 +9,7 @@ export default {
     state.user = data.data
   },
   SET_ARTICLES(state, data) {
-    state.articles = state.articles.concat(data.data)
+    state.articles = data.data
     state.total = data.total
   },
   SET_TAGS(state, data) {
