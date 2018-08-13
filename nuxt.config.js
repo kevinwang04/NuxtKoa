@@ -46,7 +46,7 @@ module.exports = {
   proxy: [
     ['/api', 
       { 
-        target: 'http://0.0.0.0:3010',
+        target: 'http://118.24.149.140:3010',
         secure: false,
         changeOrigin: true, // 这个属性去了就404,具体原因不详
         cookieDomainRewrite: '0.0.0.0'

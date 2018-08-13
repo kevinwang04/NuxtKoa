@@ -5,7 +5,7 @@
   "author": "kevin",
   "scripts": {
     "dev": "nodemon -w ./server -w ./start.js --exec babel-node ./start.js",
-    "debug": "nodemon --exec babel-node ./start.js",
+    "debug": "nodemon -w ./server --exec babel-node ./start.js",
     "build": "nuxt build",
     "nuxt": "nuxt",
     "server": "server=true nodemon -w ./server --exec babel-node ./server",
@@ -17,7 +17,7 @@
   "config": {
     "nuxt": {
       "host": "0.0.0.0",
-      "port": "3333"
+      "port": "3335"
     }
   },
   "dependencies": {
