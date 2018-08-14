@@ -21,5 +21,5 @@ app
   .use(router.routes())
   .use(router.allowedMethods())
 
-app.listen(3010, '127.0.0.1')
-console.log('Server listening on ' + '127.0.0.1:' + 3010) // eslint-disable-line no-console
+app.listen(3010, '0.0.0.0')
+console.log('Server listening on ' + '0.0.0.0:' + 3010) // eslint-disable-line no-console
