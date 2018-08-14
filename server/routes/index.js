@@ -26,7 +26,7 @@ router
   .get('/api/user/:username?', user.getUserInfo)
   .patch('/api/user', checkToken, user.patchUserInfo)
   .post('/api/login', user.login)
-  .post('/api/logout', checkToken, user.logout)
+  .post('/api/logout', user.logout)
 
 router
   .get('/api/tags/:id?', tag.getTagsOrArticles)
