@@ -38,9 +38,9 @@
       <nuxt-link to="/rss.xml" target="_blank"><i class="vueblog icon-rss"></i></nuxt-link>
       <a href="https://github.com/kevinwang04"><i class="vueblog icon-github"></i></a>
       <a @click="backTop"><i class="vueblog icon-backtop"></i></a>
+      <a href="javascript:void(0)"><i @click="toggleDark" class="vueblog icon-writefill"></i></a>
     </aside>
     <footer class="blog-footer container">
-      <!-- <a href="/admin/publish"><i class="vueblog icon-writefill"></i></a> -->
       <p><a href="https://github.com/kevinwang04" target="_blank">Kevinwang</a> copyright <span @click="$router.push('/admin/publish')">©</span> 2018</p>
     </footer>
   </div>
@@ -57,6 +57,11 @@ export default {
           name: '首页'
         },
         {
+          path: '/?tag=随笔',
+          routerName: 'index',
+          name: '随笔'
+        },
+        {
           path: '/tags',
           routerName: 'tags-id',
           name: '标签'
@@ -69,6 +74,11 @@ export default {
       ],
 
       adminNavs: [
+        {
+          path: '/',
+          routerName: 'index',
+          name: '首页'
+        },
         {
           path: '/admin/private',
           routerName: 'admin-private',
@@ -117,6 +127,10 @@ export default {
     backTop() {
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
+    },
+    toggleDark() {
+      let isDark = this.$store.state.isDark
+      this.$store.commit('TOGGLE_DARK', !isDark)
     },
     showMenu() {
       if(this.$refs.headerNav.style.transform) {

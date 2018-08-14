@@ -23,5 +23,8 @@ export default {
   },
   SET_SEARCH(state, data) {
     state.searchArticles = data.data
+  },
+  TOGGLE_DARK(state, data) {
+    state.isDark = data
   }
 }

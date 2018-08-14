@@ -4,7 +4,8 @@
   "description": "nuxt koa CMS",
   "author": "kevin",
   "scripts": {
-    "dev": "nodemon -w ./server -w ./start.js --exec babel-node ./start.js",
+    "dev-server": "nodemon -w ./server -w ./start.js --exec babel-node ./start.js",
+    "dev": "nuxt",
     "debug": "nodemon -w ./server --exec babel-node ./start.js",
     "build": "nuxt build",
     "nuxt": "nuxt",
@@ -39,7 +40,7 @@
     "nodemailer": "^4.6.7",
     "nuxt": "latest",
     "source-map-support": "^0.4.15",
-    "top-editor": "^0.0.8",
+    "top-or": "^0.0.8",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {

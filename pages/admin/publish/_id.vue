@@ -1,7 +1,7 @@
 <template>
   <div class="admin-publish">
     <input type="text" placeholder="文章标题" v-model="article.title" class="publish-title">
-    <div class="publish-content">
+    <div class="publish-content" :class="{dark: $store.state.isDark}">
       <top-editor v-model="article.content" :upload="upload" :options="options" @save="save" />
     </div>
     <div class="publish-handle">
@@ -156,3 +156,17 @@ export default {
 }
 
 </script>
+<style lang="scss">
+.dark {
+  .top-editor .editor-wrap .editor-content .content-wrap .content-editor{
+    background-color: #777;
+  }
+  .top-editor .editor-wrap .editor-content .content-wrap .content-preview{
+    background-color: #333;
+  }
+  .markdown-body{
+    color: #bbb;
+  }
+}
+</style>
+

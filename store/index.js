@@ -17,7 +17,8 @@ export default () => {
       archives: [],
       githubApi:{
         userInfo: 'https://api.github.com/user?access_token='
-      }
+      },
+      isDark: false
     },
     getters,
     mutations,
