@@ -28,7 +28,7 @@ export default {
     pass: ''
   },
   app: {
-    domain: 'http://118.24.149.140',
+    domain: 'http://118.24.149.140:3010',
     host: '0.0.0.0',
     port: 3010,
     routerBaseApi: 'api'
