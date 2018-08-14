@@ -33,8 +33,8 @@ module.exports = {
     description: 'A blog system',
     theme_color: '#42B983'
   },
-  modules: ['@nuxtjs/pwa',
-            '@nuxtjs/axios',
+  modules: [
+            // '@nuxtjs/axios',
             ['@nuxtjs/proxy', { pathRewrite: { '^/api' : 'api' } }],
   ],
   plugins: [
@@ -46,7 +46,7 @@ module.exports = {
   proxy: [
     ['/api', 
       { 
-        target: 'http://0.0.0.0:3010',
+        target: 'http://127.0.0.1:3010',
         secure: false,
         changeOrigin: true, // 这个属性去了就404,具体原因不详
         cookieDomainRewrite: '0.0.0.0'
