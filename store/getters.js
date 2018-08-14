@@ -1,7 +1,6 @@
 import globalConfig from '../server/config'
 export default {
   baseUrl() {
-    return '/api'
     let host
     if (process.env.NODE_ENV === 'production' && globalConfig.app.domain) {
       host = `${globalConfig.app.domain}/${globalConfig.app.routerBaseApi}`
